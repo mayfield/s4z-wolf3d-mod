@@ -1,0 +1,20 @@
+{
+    "manifest_version": 1,
+    "name": "Wolfenstein 3D Pain Face",
+    "description": "Show your level of pain with a Wolfenstein 3D inspired pain face.",
+    "author": "Justin Mayfield",
+    "website_url": "https://github.com/mayfield/s4z-wolf3d-mod",
+    "version": "0.0.1",
+    "web_root": "pages",
+    "windows": [{
+        "file": "pages/painface.html",
+        "name": "Wolfenstein Pain Face",
+        "description": "A floating pain face",
+        "overlay": true,
+        "frame": false,
+        "default_bounds": {
+            "width": 200,
+            "height": 500
+        }
+    }]
+}
