@@ -4,9 +4,7 @@ common.settingsStore.setDefault({
     painSource: 'wbal',
 });
 const settings = common.settingsStore.get();
-const H = sauce.locale.human;
 
-const ext = 'webp';
 const faces = [
     ['0-a'],
     ['1-a', '1-b', '1-c'],
@@ -19,9 +17,32 @@ const faces = [
     ['8-a']
 ];
 
+
+function faceImage(painLevel) {
+    const level = faces[Math.min(faces.length - 1, Math.round(faces.length * painLevel))];
+    return `images/sprite/${level[level.length * Math.random() | 0]}.webp`;
+    
+}
+
 export async function main() {
     common.initInteractionListeners();
-    console.log("Sauce Version:", await common.rpc.getVersion());
+    const face = document.querySelector('img#painface');
+    face.src = faceImage(0);
+    let maxHR = 140;
+    common.subscribe('athlete/watching', ad => {
+        let level;
+        const painSource = settings.painSource;
+        if (painSource === 'wbal') {
+            level = 1 - (ad.wBal / ad.athlete.wPrime);
+        } else if (painSource === 'hr') {
+            maxHR = Math.max(maxHR, ad.state.heartrate);
+            level = ad.state.heartrate / maxHR;
+        } else if (painSource === 'power') {
+            level = ad.state.power / 1000;
+        }
+        console.log({painSource, level});
+        face.src = faceImage(level || 0);
+    });
 }
 
 

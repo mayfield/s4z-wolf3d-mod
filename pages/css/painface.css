@@ -1,0 +1,11 @@
+#content {
+    flex-direction: row;
+    justify-content: center;
+}
+
+#painface {
+    image-rendering: pixelated !important;
+    object-fit: contain;
+    max-width: 100%;
+    max-height: 100%;
+}
